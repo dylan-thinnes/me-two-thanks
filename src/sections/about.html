@@ -1,0 +1,47 @@
+<%= render partial: "shared/section_colour" %>
+<% set_title("About Me") %>
+<h2>about me & this site</h2>
+<p>
+    <b class="text">Who are you?</b><br/>
+    <small>
+        Hello, my name is Dylan! I'm currently studying Computer Science at the
+        University of Edinburgh, welcome to my website. I'm very passionate
+        about technology's capacity to connect and to inform people. It's no
+        surprise then that I do a good deal of front-end, though I'm not at all
+        averse to stricter back-end work.
+    </small>
+</p>
+
+<p>
+    <b class="text">About the Site</b><br/>
+    <small>
+        I wanted to make a site that prioritizes having a very small footprint,
+        yet still looks nice and behaves like a single page app, and can
+        gracefully drop back if JavaScript is disabled. I think I succeeded in
+        that respect.
+        <br/>
+        <br/>
+        - When Javascript is disabled, links to different endpoints call upon
+        Rails to render all markup server-side. Disable JavaScript to see for
+        yourself how the site copes just fine.
+        <br/>
+        - Aside from content and profile picture, the server sends only 4
+        kilobytes over the network after assets are minified and compressed.
+        <br/>
+        - When Javascript is enabled, it takes over regular link behaviour and
+        uses XHR and the History API instead, loading only the content you need.
+        <br/>
+        <br/>
+        To see the source code, go to 
+        <a href="https://github.com/dylan-thinnes/me-two">Github</a>.  
+    </small>
+</p>
+<small>To see licensing info for all JavaScript on this site:
+    <table id="jslicense-labels1">
+        <tr>
+            <td><a href="<%= asset_path "application.js" %>">minified code</a></td>
+            <td><a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3 license</a></td>
+            <td><a href="https://raw.githubusercontent.com/dylan-thinnes/me-two/master/app/assets/javascripts/application.js.erb">source code</a></td>
+        </tr>
+    </table>
+</small>

@@ -1,0 +1,12 @@
+<%= render partial: "shared/section_colour" %>
+<% set_title("Dylan's Blog") %>
+<%= to_markdown "## blog" %>
+<% Article.order(:updated_at => "DESC").where(published: true).each do |a| %>
+    <p><a href="/article/<%= a.id %>" class="entry">
+      <b class="text"><%= a.title %></b><br/>
+      <small>
+        <%= "By #{a.author}, " if !a.author.nil? %><i>Last Edited <%= a.updated_at.strftime("%Y %B %e") %></i><br/>
+        <%= a.blurb %>
+      </small>
+    </a></p>
+<% end %>

@@ -1,0 +1,24 @@
+<%= render partial: "shared/section_colour" %>
+<% set_title("Contact Me") %>
+<h2>contact & cv</h2>
+<% entries = [
+{ link: "mailto://dylan.thinnes@protonmail.com",
+  title: "dylan.thinnes@protonmail.com",
+  text: "
+This email is for general inquiries and items not directly related to programming.
+Reply time will be anywhere from 0.5-7 days depending on urgency, time of year, and timezones." },
+{ title: "github/dylan-thinnes",
+  link: "https://github.com/dylan-thinnes",
+  text: "For inquiry/discussion related to programming, especially one of my existing projects, I recommend contacting me on GitHub." },
+{ title: "For my CV, click here.",
+  link: "#{asset_path "dylant-cv.pdf"}",
+}
+] %>
+<% entries.each do |e| %>
+    <p><a href="<%= e[:link] %>" class="entry" data-disable-mocking="true">
+      <b class="text"><%= e[:title] %></b><br/>
+      <small>
+        <%= e[:text] %>
+      </small>
+    </a></p>
+<% end %>
