@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+      <head>
+            <title>Dylan J Thinnes</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta charset="utf-8">
+            <!-- style inclusion -->
+      </head>
+
+      <body>
+            <div class="spacer"></div>
+            <!-- profile picture here -->
+            <div id="name"><%= link_to "Dylan Thinnes", "/", class: "reset" %></div>
+            <div id="social">
+                <!-- tab colour styling -->
+                <!-- links here -->
+            </div>
+            <div id="blurb">
+                I am a student of Comp Sci at the University of
+                Edinburgh.<br/>In my spare time, I enjoy camping, Aikido, and
+                coding.  
+            </div>
+            <div id="content">
+                <div class="section selected" data-url="<%= request.path %>">
+                    <title><!-- title of content --></title>
+                    <!-- actual content -->
+                </div>
+                <div class="section" id="loading">
+                    <div class="text">Loading...</div>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <!-- javascript inclusion -->
+      </body>
+</html>
