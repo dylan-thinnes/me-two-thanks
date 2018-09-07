@@ -16,8 +16,5 @@
     "url": "https://github.com/dylan-thinnes/me-two-thanks/issues"
   },
   "homepage": "https://github.com/dylan-thinnes/me-two-thanks#readme",
-  "devDependencies": {
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
-  }
+  "devDependencies": {}
 }
