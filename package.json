@@ -1,0 +1,23 @@
+{
+  "name": "me-two-thanks",
+  "version": "1.0.0",
+  "description": " Yet Another Implementation of My Personal Site - This time, without Rails ",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylan-thinnes/me-two-thanks.git"
+  },
+  "author": "Dylan Thinnes",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/dylan-thinnes/me-two-thanks/issues"
+  },
+  "homepage": "https://github.com/dylan-thinnes/me-two-thanks#readme",
+  "devDependencies": {
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
+  }
+}
