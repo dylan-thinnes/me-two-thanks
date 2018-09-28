@@ -8,6 +8,7 @@ import Text.Pandoc.Error            (PandocError, handleError)
 import Data.Default                 (def)
 
 import qualified Data.Text as T
+import Data.Maybe (fromMaybe)
 
 newtype Markdown = Markdown { md   :: T.Text }
     deriving (Show, Read)
@@ -27,5 +28,34 @@ convertMarkdownToHtmlSafe t = case convertMarkdownToHtml t of
 
 data Article = Article T.Text (Maybe T.Text) (Maybe T.Text) (Maybe Markdown) Markdown
     deriving (Show, Read)
+
+getMetadata :: T.Text -> [T.Text]
+getMetadata = takeWhile (/="") . T.lines
+
+getBody :: T.Text -> T.Text
+getBody = T.tail . T.tail . snd . T.breakOn "\n\n"
+
+indexJust :: [a] -> Int -> Maybe a
+indexJust vs i = if length vs > i then Just $ vs !! i else Nothing
+
+parseArticle :: T.Text -> Article
+parseArticle t = Article title author date description content
+    where
+    metadata = getMetadata t
+    content = Markdown $ getBody t
+    title = metadata !! 0
+    author      = indexJust metadata 1
+    date        = indexJust metadata 2
+    description = Markdown <$> indexJust metadata 3
+
 data Project = Project T.Text T.Text T.Text
     deriving (Show, Read)
+
+parseProject :: T.Text -> Project
+parseProject t = Project name url description
+    where
+    (name:url:descriptionPieces) = T.splitOn "\n" t
+    description = T.unlines descriptionPieces
+
+parseProjects :: T.Text -> [Project]
+parseProjects = map parseProject . T.splitOn "\n\n"
