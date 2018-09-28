@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Article 
-    ( parseArticle
-    , articleToHtml
-    , articleToBlurb
+    ( parse
+    , longform
+    , blurb
     ) where
 
 import MdToHtml
@@ -21,8 +21,8 @@ getBody = T.tail . T.tail . snd . T.breakOn "\n\n"
 indexJust :: [a] -> Int -> Maybe a
 indexJust vs i = if length vs > i then Just $ vs !! i else Nothing
 
-parseArticle :: T.Text -> Article
-parseArticle t = Article title author date description content
+parse :: T.Text -> Article
+parse t = Article title author date description content
     where
     metadata = getMetadata t
     content = Markdown $ getBody t
@@ -31,18 +31,18 @@ parseArticle t = Article title author date description content
     date        = indexJust metadata 2
     description = Markdown <$> indexJust metadata 3
 
-articleToHtml :: Article -> Html
-articleToHtml (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, "\n\n", md content]
+longform :: Article -> Html
+longform (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, "\n\n", fromMd content]
     where
     headerMd = T.concat [titleMd, "\n*", authorMd, dateMd, "*"]
     titleMd  = T.append "#" title
     authorMd = fromMaybe "Anonymous" author
     dateMd   = fromMaybe "" $ fmap (T.append ", ") date
 
-articleToBlurb :: Article -> Html
-articleToBlurb (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, descriptionMd]
+blurb :: Article -> Html
+blurb (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, descriptionMd]
     where
-    descriptionMd = fromMaybe "" $ fmap (T.append "  \n" . md) description
+    descriptionMd = fromMaybe "" $ fmap (T.append "  \n" . fromMd) description
     headerMd      = T.concat [titleMd, "  \n*", authorMd, dateMd, "*"]
     titleMd       = T.concat ["**", title, "**"]
     authorMd      = fromMaybe "Anonymous" author

@@ -14,13 +14,13 @@ import Text.Pandoc.Error            (PandocError, handleError)
 import Data.Default                 (def)
 import Data.Text                    (Text)
 
-newtype Markdown = Markdown { md   :: Text }
+newtype Markdown = Markdown { fromMd   :: Text }
     deriving (Show, Read)
-newtype Html     = Html     { html :: Text }
+newtype Html     = Html     { fromHtml :: Text }
     deriving (Show, Read)
 
 convertMarkdownToHtml :: Markdown -> Either PandocError Html
-convertMarkdownToHtml t = runPure $ readMarkdown def (md t) >>= writeHtml5String def >>= return . Html
+convertMarkdownToHtml t = runPure $ readMarkdown def (fromMd t) >>= writeHtml5String def >>= return . Html
 
 convertMarkdownToHtmlIO :: Markdown -> IO Html
 convertMarkdownToHtmlIO t = handleError $ convertMarkdownToHtml t
@@ -28,4 +28,4 @@ convertMarkdownToHtmlIO t = handleError $ convertMarkdownToHtml t
 convertMarkdownToHtmlSafe :: Markdown -> Html
 convertMarkdownToHtmlSafe t = case convertMarkdownToHtml t of
     Right html -> html
-    Left html  -> Html "Parsing error in Markdown."
+    Left  _    -> Html "Parsing error in Markdown."
