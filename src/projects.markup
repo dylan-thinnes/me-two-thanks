@@ -1,0 +1,51 @@
+Jobber - A Job Tracker
+https://github.com/andmikey/jobber
+Helps you keep track of multiple jobs while on a job hunt.  
+Originally made for a hackathon.  
+Uses React for the UI, Ruby on Rails for the backend. Still a work in progress.
+
+SolSys - A Math-Oriented Puzzle
+https://solsys.xyz
+A three year art project for the more mathematically reclined.  
+Uses AWS Lambda, AWS Gateway, NodeJS, and C++
+
+Haskulate - Quick Haskell Calculations
+https://github.com/dylan-thinnes/haskulator
+A one-day shell scripting project to make very quick, in-terminal calculations using the full potential of the Haskell standard library.  
+Uses cat and the Glasgow Haskell Compiler.
+
+me-two - This Site!
+https://dylant.org
+A site that can double as a project listing, a contact page, and a blog.  
+Built on rails, nice and lightweight, and completely no-JS compatible.
+
+youtube-archive - A youtube-dl Mod
+https://github.com/dylan-thinnes/youtube-archive
+Wraps youtube-dl in helper functions which facilitate multiple simulatneous downloads and remember which videos you've already downloaded.  
+This improves on youtube-dl's name-collision approach to download decisions.
+
+Word of the Lord - Bringing Stallman to You
+https://github.com/andmikey/created/blob/master/app.py
+A completely free and open source hardware/software hack.  
+At the press of a button, reads you a random Richard Stallman quote.  
+Won the Github 'Spirit of the Hack' award. Run on a Raspberry Pi, using Wikiquotes and espeak.
+
+SVGtoJS - A Space-Saving Sprite Generator
+svgtojs.github.io
+Converts SVG files into a series of drawing commands to a canvas.  
+Saves a good deal of space when you need svgs on bitmaps and want to able to modify their attributes quickly, such as stroke and fill color.
+
+Domainatrix - Domains for the Soul
+#https://domainatrix.me
+Cataloguing the nightmare that is the University of Edinburgh's DNS, one step at a time.  
+Peruse the catalogue, Make your own submissions, and see the ping and http statuses of different domains' resolved addresses.
+
+SlightlyBetterLectures - Lectures for UoE Students
+#https://lectures.dylant.org/
+A lecture hosting site for fellow University of Edinburgh students.  
+Now deprecated due to legal concerns.
+
+trump-or-not - A Twitter Game
+#https://trump-or-not.net
+A fun little site, it show you a tweet and you have to guess if Trump said it or not. Try your luck and see how others fared.  
+Please note I'm not very political in nature, it's more an attempt at a game than anything else.
