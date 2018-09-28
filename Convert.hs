@@ -48,6 +48,23 @@ parseArticle t = Article title author date description content
     date        = indexJust metadata 2
     description = Markdown <$> indexJust metadata 3
 
+articleToHtml :: Article -> Html
+articleToHtml (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, "\n\n", md content]
+    where
+    headerMd = T.concat [titleMd, "\n*", authorMd, dateMd, "*"]
+    titleMd  = T.append "#" title
+    authorMd = fromMaybe "Anonymous" author
+    dateMd   = fromMaybe "" $ fmap (T.append ", ") date
+
+articleToBlurb :: Article -> Html
+articleToBlurb (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, descriptionMd]
+    where
+    descriptionMd = fromMaybe "" $ fmap (T.append "  \n" . md) description
+    headerMd      = T.concat [titleMd, "  \n*", authorMd, dateMd, "*"]
+    titleMd       = T.concat ["**", title, "**"]
+    authorMd      = fromMaybe "Anonymous" author
+    dateMd        = fromMaybe "" $ fmap (T.append ", ") date
+
 data Project = Project T.Text T.Text T.Text
     deriving (Show, Read)
 
@@ -59,3 +76,15 @@ parseProject t = Project name url description
 
 parseProjects :: T.Text -> [Project]
 parseProjects = map parseProject . T.splitOn "\n\n"
+
+projectToHtml :: Project -> Html
+projectToHtml (Project name url description) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [nameMd, "  \n", description]
+    where
+    nameMd = T.concat ["**", name, "**"]
+
+projectsToHtml :: [Project] -> Html
+projectsToHtml ps = Html . T.concat $ (title:wrappedProjects)
+    where
+    title = html $ convertMarkdownToHtmlSafe $ Markdown "## Projects"
+    wrapProject p@(Project _ url _) = T.concat ["<a href=\"", url, "\">", (html . projectToHtml) p , "</a>"]
+    wrappedProjects = map wrapProject ps
