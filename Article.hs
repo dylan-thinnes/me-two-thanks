@@ -9,8 +9,16 @@ import MdToHtml
 import qualified Data.Text as T
 import Data.Maybe (fromMaybe)
 
-data Article = Article T.Text (Maybe T.Text) (Maybe T.Text) (Maybe Markdown) Markdown
+data Article = Article 
+    { title       :: T.Text
+    , author      :: Maybe T.Text
+    , date        :: Maybe T.Text
+    , description :: Maybe T.Text
+    , content     :: T.Text
+    }
     deriving (Show, Read)
+
+-- Utility Functions for Parsing in Files
 
 getMetadata :: T.Text -> [T.Text]
 getMetadata = takeWhile (/="") . T.lines
@@ -25,14 +33,14 @@ parse :: T.Text -> Article
 parse t = Article title author date description content
     where
     metadata = getMetadata t
-    content = Markdown $ getBody t
+    content = getBody t
     title = metadata !! 0
     author      = indexJust metadata 1
     date        = indexJust metadata 2
-    description = Markdown <$> indexJust metadata 3
+    description = indexJust metadata 3
 
 longform :: Article -> Html
-longform (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, "\n\n", fromMd content]
+longform (Article title author date description content) = convertMarkdownToHtmlSafe $ T.concat [headerMd, "\n\n", content]
     where
     headerMd = T.concat [titleMd, "\n*", authorMd, dateMd, "*"]
     titleMd  = T.append "#" title
@@ -40,9 +48,9 @@ longform (Article title author date description content) = convertMarkdownToHtml
     dateMd   = fromMaybe "" $ fmap (T.append ", ") date
 
 blurb :: Article -> Html
-blurb (Article title author date description content) = convertMarkdownToHtmlSafe $ Markdown $ T.concat [headerMd, descriptionMd]
+blurb (Article title author date description content) = convertMarkdownToHtmlSafe $ T.concat [headerMd, descriptionMd]
     where
-    descriptionMd = fromMaybe "" $ fmap (T.append "  \n" . fromMd) description
+    descriptionMd = fromMaybe "" $ fmap (T.append "  \n") description
     headerMd      = T.concat [titleMd, "  \n*", authorMd, dateMd, "*"]
     titleMd       = T.concat ["**", title, "**"]
     authorMd      = fromMaybe "Anonymous" author
