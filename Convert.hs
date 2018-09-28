@@ -24,3 +24,8 @@ convertMarkdownToHtmlSafe :: Markdown -> Html
 convertMarkdownToHtmlSafe t = case convertMarkdownToHtml t of
     Right html -> html
     Left html  -> Html "Parsing error in Markdown."
+
+data Article = Article T.Text (Maybe T.Text) (Maybe T.Text) (Maybe Markdown) Markdown
+    deriving (Show, Read)
+data Project = Project T.Text T.Text T.Text
+    deriving (Show, Read)
