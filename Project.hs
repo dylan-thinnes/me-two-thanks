@@ -6,7 +6,7 @@ module Project
 
 import qualified Data.Text as T
 
-import MdToHtml
+import MiniHtml
 
 data Project = Project T.Text T.Text T.Text
     deriving (Show, Read)

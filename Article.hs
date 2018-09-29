@@ -5,7 +5,7 @@ module Article
     , blurb
     ) where
 
-import MdToHtml
+import MiniHtml
 import qualified Data.Text as T
 import Data.Maybe (fromMaybe)
 

@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module MdToHtml 
+module MiniHtml 
     ( convertMarkdownToHtml
     , convertMarkdownToHtmlIO
     , convertMarkdownToHtmlSafe
