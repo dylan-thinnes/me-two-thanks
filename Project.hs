@@ -30,11 +30,11 @@ projectToButton p@(Project name url description) = convertMarkdownToHtmlSafe $ T
     deprecationMd = if deprecated p then " (Deprecated)" else ""
 
 page :: [Project] -> Html
-page ps = Html . T.concat $ (title:wrappedProjects)
+page ps = RawHtml $ T.concat $ (title:wrappedProjects)
     where
-    title = fromHtml $ convertMarkdownToHtmlSafe $ "## Projects"
+    title = showText $ convertMarkdownToHtmlSafe $ "## Projects"
     wrapProject p@(Project _ url _) = if deprecated p
-        then T.concat ["<div>",                  (fromHtml . projectToButton) p , "</div>"]
-        else T.concat ["<a href=\"", url, "\">", (fromHtml . projectToButton) p , "</a>"]
+        then T.concat ["<div>",                  (showText . projectToButton) p , "</div>"]
+        else T.concat ["<a href=\"", url, "\">", (showText . projectToButton) p , "</a>"]
     wrappedProjects = map wrapProject ps
 
