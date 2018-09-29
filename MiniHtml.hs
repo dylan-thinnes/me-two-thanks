@@ -4,6 +4,7 @@ module MiniHtml
     , convertMarkdownToHtmlIO
     , convertMarkdownToHtmlSafe
     , Html(..)
+    , Attribute(..)
     , showText
     ) where
 

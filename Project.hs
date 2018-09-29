@@ -24,8 +24,12 @@ parse :: T.Text -> [Project]
 parse = map parseOne . T.splitOn "\n\n"
 
 projectToButton :: Project -> Html
-projectToButton p@(Project name url description) = convertMarkdownToHtmlSafe $ T.concat [nameMd, deprecationMd, "  \n", description]
+projectToButton p@(Project name url description) = wrappedButton
     where
+    wrappedButton = if deprecated p 
+        then Element "div" [] [buttonContent]
+        else Element "a" [Attribute "href" url] [buttonContent]
+    buttonContent = convertMarkdownToHtmlSafe $ T.concat [nameMd, deprecationMd, "  \n", description]
     nameMd = T.concat ["**", name, "**"]
     deprecationMd = if deprecated p then " (Deprecated)" else ""
 
@@ -33,8 +37,5 @@ page :: [Project] -> Html
 page ps = RawHtml $ T.concat $ (title:wrappedProjects)
     where
     title = showText $ convertMarkdownToHtmlSafe $ "## Projects"
-    wrapProject p@(Project _ url _) = if deprecated p
-        then T.concat ["<div>",                  (showText . projectToButton) p , "</div>"]
-        else T.concat ["<a href=\"", url, "\">", (showText . projectToButton) p , "</a>"]
-    wrappedProjects = map wrapProject ps
+    wrappedProjects = map (showText . projectToButton) ps
 
